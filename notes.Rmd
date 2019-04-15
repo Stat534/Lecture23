@@ -1,0 +1,92 @@
+---
+title: "STAT 534 - Lecture 23:"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.align= 'center')
+knitr::opts_chunk$set(fig.height= 4)
+knitr::opts_chunk$set(fig.width = 6)
+library(tidyverse)
+library(gridExtra)
+library(ggplot2)
+library(smacpod)
+library(spatstat)
+set.seed(04082019)
+```
+
+### K function
+
+- We previously looked at the $F(d)$ and $G(d)$ functions, which corresponded to 
+
+\vfill
+
+- Another interesting feature of a point process is the number of points in a specified area.
+\vfill
+- Consider $E(Num(\boldsymbol{s},d,\boldsymbol{S}))$, the expected number of points in $\delta_d\boldsymbol{s}$, a circle of radius $d$ centered at $\boldsymbol{s}$.
+\vfill
+- *Ripley's*
+\vfill
+\vfill
+- With CSR, $K(d)$
+\vfill
+- To estimate $K(d)$, 
+\vfill
+\vfill
+- The empirical $K$ statistic is compared with $\pi d^2$. 
+\vfill
+- Similar to the $G$ and $F$ functions, edge correction is typically applied.
+\newpage
+
+### `spatstat` Intro
+- The `spatstat` package is a comprehensive R package for point process data. It has a [website](http://spatstat.org) and a nice [vignette](https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf).
+\vfill
+
+- Consider a dataset with medieval grave site information.
+```{r, echo = T}
+data(grave)
+summary(grave)
+plot(grave)
+```
+\vfill
+- Explore the `Fest()`, `Gest()`, and `Kest()` functions in `spatstat` and summarize the results for the `grave` dataset. (Also look at the `envelope` function for plots.)
+
+
+\vfill
+
+\newpage
+- Next convert the point processes from early classes to `ppp` objects and explore `Fest()`/`Kest()`.
+
+```{r, echo = T}
+set.seed(04082019)
+n <- rpois(4, 50)
+x <- c(rbeta(n[1], 1, 1), rbeta(n[2], 1, 1), rbeta(n[3], 3, 1),rbeta(n[4], 3, 3))
+y <- c(rbeta(n[1], 1, 1), rbeta(n[2], 1, 1), rbeta(n[3], 3, 1),rbeta(n[4], 3, 3))
+
+comb.df <- data.frame(group = c(rep(1, n[1]), rep(2, n[2]), rep(3, n[3]), rep(4, n[4])), x = x, y = y)
+
+df1 <- comb.df %>% filter(group ==1)
+df2 <- comb.df %>% filter(group ==2)
+df3 <- comb.df %>% filter(group ==3)
+df4 <- comb.df %>% filter(group ==4)
+```
+
+
+### Estimating the intensity Function 
+
+- With CSR, the intensity function is trivial 
+\vfill
+- __Discuss:__ given a realization of a point process, how could an intensity function be estimated?
+\vfill
+- *One option*
+\vfill
+\vfill
+- *An alternative* 
+\vfill
+\vfill
+- Now using the `plot(density(.))` function, plot and interpret the empirical intensity for the grave dataset along with the four synthetic examples.
+
+\vfill
